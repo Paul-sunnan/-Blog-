@@ -1,0 +1,75 @@
+{% extends 'sunnanblog/article_list.html' %}
+
+{% block title %}
+    <title>站长信息-孙楠的blog</title>
+{% endblock %}
+
+{% block active %}
+				<ul class="navbar-nav flex-column text-left">
+					<li class="nav-item ">
+					    <a class="nav-link" href="{% url 'article_menu' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog首页 <span class="sr-only"></span></a>
+					</li>
+					<li class="nav-item  ">
+					    <a class="nav-link" href="{% url 'article_list' %}"><i class="fas fa-bookmark fa-fw mr-2"></i>文章/学习笔记</a>
+					</li>
+					<li class="nav-item active">
+					    <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-user fa-fw mr-2"></i>个人简历</a>
+					</li>
+				</ul>
+{% endblock %}
+
+{% block main %}
+    <div class="main-wrapper">
+
+	    <article class="about-section py-5">
+		    <div class="container">
+			    <h2 class="title mb-3">关于我：</h2>
+
+			    <p>
+			    	曾经一个在大学徘徊在肆业边缘的问题少年<br/>
+			    	如果你问我：“大学你都在做什么？”<br/>
+			    	“可能......在思考人生。”<br/>
+			    	<br/>
+			    	“人生三大悲剧：少年得志、中年失业、老年入花丛。” 我大概中了第一招：少年得志。<br/>
+			    	在我读高三之前我从没奢望过会拿到985大学offer，然而命运总是让我悲喜交加，
+			    	在我收到山大录取通知书后那天起整个人心态已经在发生着变化，从没有察觉到这一点，
+			    	直到我比别人多花了两年时间拿到山大毕业证那天起，再回首想再多看了一眼背后校园。
+			    	想象着两年那群人在这里留下的的喧嚣，我不禁感慨错过的那一整个夏天。
+			    	回过神来，我感到了从未有过的孤独......
+			    </p>
+
+			    <figure><img class="img-fluid" src="/static/sunnanblog/article_list/images/about-me.jpg" alt="image"></figure>
+			    <h5 class="mt-5">关于这个站点：</h5>
+			    <p>
+			    	高三我曾经有过一个很好的习惯：写笔记，看笔记。 对于绝大多数记忆力在一般水平线上的人来说这个习惯
+			    	都是至关重要的，工作后想要重新培养这个曾经让我受益过的习惯，后来对纸质笔记再也提不起兴趣了，就试着在公众号、
+			    	印象笔记写随笔和学习笔记，因为各种原因断断续续自己没能坚持下来。 工作后接触Python和Web开发多一些开始试着学习
+			    	搭建自己的个人网站，想通过这样的方式记录真正属于自己的笔记。 按照艾宾浩斯记忆曲线设置定期给自己的推送复习以前的学习笔记。
+
+				<p/>
+				<p>
+			    	这样每天上自己网站可能是一件更有成就感的事。
+			    </p>
+
+
+			    <h5 class="mt-5">我的主队：山东鲁能泰山</h5>
+			    <p>
+
+			    </p>
+
+			    <figure><a href="https://made4dev.com"><img class="img-fluid" src="/static/sunnanblog/article_list/images/lnts.jpg" alt="image"></a></figure>
+		    </div>
+	    </article><!--//about-section-->
+
+
+	    <footer class="footer text-center py-2 theme-bg-dark">
+	        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">孙楠Blog <i class="fas fa-home" style="color: #fb866a;"></i>  <a href="" target="_blank"></a> </small>
+
+	    </footer>
+
+    </div><!--//main-wrapper-->
+{% endblock %}
+
+
+

@@ -1,0 +1,53 @@
+
+.alert {
+    font-size: 14px;
+    border-radius: 0;
+    margin-top: 2rem !important;
+}
+
+/* 解决ace的导航栏与bootstarp导航栏冲突 */
+.navbar .navbar-nav > li {
+    border-width: 0 0 0 0;
+}
+.navbar .navbar-nav > li:first-child {
+    border-width: 0 0 0 0;
+}
+
+/* 头像周边背景色 */
+.ace-nav > li > a:hover, .ace-nav > li > a:focus, .ace-nav > li.open > a {
+    background-color: #438EB6;
+    color: #FFF;
+}
+.ace-nav > li > a{
+    background-color: #438EB6;
+}
+
+
+/* 头像旁边的用户名称上下位置调整 */
+.user-info{
+    top: 30%;
+}
+
+/* 首页时间轴宽度限制 */
+.time-line{
+    margin-right: 50%;
+}
+
+.widget-main {
+    padding: 0px 0px 0px 32px;
+}
+
+
+.wrapper-article .col-xs-12{
+    padding: 0;
+}
+
+.wrapper-article .search-media{
+    padding: 6px;
+}
+
+.widget-body li{
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+}

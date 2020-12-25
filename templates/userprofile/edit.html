@@ -1,0 +1,766 @@
+{% extends 'sunnanblog/index.html' %}
+
+{% block title %}
+    <title> 个人信息 - 孙楠Blog </title>
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="/static/userprofile/css/edit.css" />
+{% endblock %}
+
+
+{% include 'head.html' %}
+
+
+{% block main %}
+
+
+	<body class="no-skin">
+
+		<div class="main-container ace-save-state" id="main-container">
+			<div class="main-content">
+				<div class="main-content-inner">
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="hr dotted"></div>
+
+
+								<div>
+									<div id="user-profile-1" class="user-profile row">
+										<div class="col-xs-12 col-sm-3 center">
+											<div>
+												<!-- #section:pages/profile.picture -->
+												<span class="profile-picture">
+                                                    {% if profile.avatar %}
+                                                        <img id="avatar" class="editable img-responsive" alt="{{ request.user }} 头像" src="{{ profile.avatar.url }}" />
+                                                    {% else %}
+                                                        <img id="avatar" class="editable img-responsive" alt="{{ request.user }} 头像" src="/static/ace/assets/avatars/profile-pic.jpg" />
+                                                    {% endif %}
+                                                </span>
+
+												<!-- /section:pages/profile.picture -->
+												<div class="space-4"></div>
+
+												<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+													<div class="inline position-relative">
+														<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+															<i class="ace-icon fa fa-circle light-green"></i>&nbsp;
+															<span class="white">{{ user.username }}</span>
+														</a>
+
+														<ul class="align-left dropdown-menu dropdown-caret dropdown-lighter">
+															<li class="dropdown-header"> 改变状态 </li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-circle green"></i>&nbsp;
+																	<span class="green">在线</span>
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-circle red"></i>&nbsp;
+																	<span class="red">忙碌</span>
+																</a>
+															</li>
+
+															<li>
+																<a href="#">
+																	<i class="ace-icon fa fa-circle grey"></i>&nbsp;
+																	<span class="grey">隐身</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+
+											<div class="space-6"></div>
+
+
+											<!-- /section:pages/profile.contact -->
+											<div class="hr hr12 dotted"></div>
+
+
+
+											<!-- /section:custom/extra.grid -->
+											<div class="hr hr16 dotted"></div>
+										</div>
+
+										<div class="col-xs-12 col-sm-9">
+											<div class="center">
+												<span class="btn btn-app btn-sm btn-light no-hover">
+													<span class="line-height-1 bigger-170 blue"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 文章浏览 </span>
+												</span>
+
+												<span class="btn btn-app btn-sm btn-yellow no-hover">
+													<span class="line-height-1 bigger-170"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 粉丝 </span>
+												</span>
+
+												<span class="btn btn-app btn-sm btn-pink no-hover">
+													<span class="line-height-1 bigger-170"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 文章主题 </span>
+												</span>
+
+												<span class="btn btn-app btn-sm btn-grey no-hover">
+													<span class="line-height-1 bigger-170"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 评论 </span>
+												</span>
+
+												<span class="btn btn-app btn-sm btn-success no-hover">
+													<span class="line-height-1 bigger-170"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 收藏 </span>
+												</span>
+
+												<span class="btn btn-app btn-sm btn-primary no-hover">
+													<span class="line-height-1 bigger-170"> 0 </span>
+
+													<br />
+													<span class="line-height-1 smaller-90"> 关注 </span>
+												</span>
+											</div>
+
+											<div class="space-12"></div>
+
+											<!-- #section:pages/profile.info -->
+											<div class="profile-user-info profile-user-info-striped">
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 用户名 </div>
+
+													<div class="profile-info-value">
+														<span class="editable" id="username">{{ user.username }}</span>
+													</div>
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 来自 </div>
+
+													<div class="profile-info-value">
+														<i class="fa fa-map-marker light-orange bigger-110"></i>
+													</div>
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 年龄 </div>
+
+													<div class="profile-info-value">
+														<span class="editable" id="age">8</span>
+													</div>
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 注册时间 </div>
+
+													<div class="profile-info-value">
+														<span class="editable" id="signup">{{ user.profile.id }}</span>
+													</div>
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 上次登录时间 </div>
+
+													<div class="profile-info-value">
+														<span class="editable" id="login">3 hours ago</span>
+													</div>
+												</div>
+
+												<div class="profile-info-row">
+													<div class="profile-info-name"> 关于我 </div>
+
+													<div class="profile-info-value">
+														<span class="editable" id="about">{{ profile.bio|safe }}</span>
+													</div>
+												</div>
+											</div>
+
+											<!-- /section:pages/profile.info -->
+											<div class="space-20"></div>
+
+
+
+											<div class="hr hr2 hr-double"></div>
+
+
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+		<script src="/static/ace/components/jquery/dist/jquery.js"></script>
+
+
+		<script src="/static/ace/components/bootstrap/dist/js/bootstrap.js"></script>
+
+		<script src="/static/ace/components/_mod/jquery-ui.custom/jquery-ui.custom.js"></script>
+		<script src="/static/ace/components/jqueryui-touch-punch/jquery.ui.touch-punch.js"></script>
+		<script src="/static/ace/components/jquery.gritter/js/jquery.gritter.js"></script>
+		<script src="/static/ace/components/bootbox.js/bootbox.js"></script>
+		<script src="/static/ace/components/_mod/easypiechart/jquery.easypiechart.js"></script>
+		<script src="/static/ace/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+		<script src="/static/ace/components/jquery.hotkeys/index.js"></script>
+		<script src="/static/ace/components/_mod/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
+		<script src="/static/ace/components/select2/dist/js/select2.js"></script>
+		<script src="/static/ace/components/fuelux/js/spinbox.js"></script>
+		<script src="/static/ace/components/_mod/x-editable/bootstrap-editable.js"></script>
+		<script src="/static/ace/components/_mod/x-editable/ace-editable.js"></script>
+		<script src="/static/ace/components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+
+		<!-- ace scripts -->
+		<script src="/static/ace/assets/js/src/elements.scroller.js"></script>
+		<script src="/static/ace/assets/js/src/elements.colorpicker.js"></script>
+		<script src="/static/ace/assets/js/src/elements.fileinput.js"></script>
+		<script src="/static/ace/assets/js/src/elements.typeahead.js"></script>
+		<script src="/static/ace/assets/js/src/elements.wysiwyg.js"></script>
+		<script src="/static/ace/assets/js/src/elements.spinner.js"></script>
+		<script src="/static/ace/assets/js/src/elements.treeview.js"></script>
+		<script src="/static/ace/assets/js/src/elements.wizard.js"></script>
+		<script src="/static/ace/assets/js/src/elements.aside.js"></script>
+		<script src="/static/ace/assets/js/src/ace.js"></script>
+		<script src="/static/ace/assets/js/src/ace.basics.js"></script>
+		<script src="/static/ace/assets/js/src/ace.scrolltop.js"></script>
+		<script src="/static/ace/assets/js/src/ace.ajax-content.js"></script>
+		<script src="/static/ace/assets/js/src/ace.touch-drag.js"></script>
+		<script src="/static/ace/assets/js/src/ace.sidebar.js"></script>
+		<script src="/static/ace/assets/js/src/ace.sidebar-scroll-1.js"></script>
+		<script src="/static/ace/assets/js/src/ace.submenu-hover.js"></script>
+		<script src="/static/ace/assets/js/src/ace.widget-box.js"></script>
+		<script src="/static/ace/assets/js/src/ace.settings.js"></script>
+		<script src="/static/ace/assets/js/src/ace.settings-rtl.js"></script>
+		<script src="/static/ace/assets/js/src/ace.settings-skin.js"></script>
+		<script src="/static/ace/assets/js/src/ace.widget-on-reload.js"></script>
+		<script src="/static/ace/assets/js/src/ace.searchbox-autocomplete.js"></script>
+
+
+
+		<link rel="stylesheet" href="/static/ace/assets/css/ace.onpage-help.css" />
+		<link rel="stylesheet" href="/static/ace/docs/assets/js/themes/sunburst.css" />
+
+		<script type="text/javascript"> ace.vars['base'] = '..'; </script>
+		<script src="/static/ace/assets/js/src/elements.onpage-help.js"></script>
+		<script src="/static/ace/assets/js/src/ace.onpage-help.js"></script>
+		<script src="/static/ace/docs/assets/js/rainbow.js"></script>
+		<script src="/static/ace/docs/assets/js/language/generic.js"></script>
+		<script src="/static/ace/docs/assets/js/language/html.js"></script>
+		<script src="/static/ace/docs/assets/js/language/css.js"></script>
+		<script src="/static/ace/docs/assets/js/language/javascript.js"></script>
+
+
+
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+
+				//editables on first profile page
+				$.fn.editable.defaults.mode = 'inline';
+				$.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
+			                                '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+
+
+
+				//editables
+				//select2 editable
+				var countries = [];
+			    $.each({ "CA": "Canada", "IN": "India", "NL": "Netherlands", "TR": "Turkey", "US": "United States"}, function(k, v) {
+			        countries.push({id: k, text: v});
+			    });
+
+				var cities = [];
+				cities["CA"] = [];
+				$.each(["Toronto", "Ottawa", "Calgary", "Vancouver"] , function(k, v){
+					cities["CA"].push({id: v, text: v});
+				});
+				cities["IN"] = [];
+				$.each(["Delhi", "Mumbai", "Bangalore"] , function(k, v){
+					cities["IN"].push({id: v, text: v});
+				});
+				cities["NL"] = [];
+				$.each(["Amsterdam", "Rotterdam", "The Hague"] , function(k, v){
+					cities["NL"].push({id: v, text: v});
+				});
+				cities["TR"] = [];
+				$.each(["Ankara", "Istanbul", "Izmir"] , function(k, v){
+					cities["TR"].push({id: v, text: v});
+				});
+				cities["US"] = [];
+				$.each(["New York", "Miami", "Los Angeles", "Chicago", "Wysconsin"] , function(k, v){
+					cities["US"].push({id: v, text: v});
+				});
+
+				var currentValue = "NL";
+			    $('#country').editable({
+					type: 'select2',
+					value : 'NL',
+					//onblur:'ignore',
+			        source: countries,
+					select2: {
+						'width': 140
+					},
+					success: function(response, newValue) {
+						if(currentValue == newValue) return;
+						currentValue = newValue;
+
+						var new_source = (!newValue || newValue == "") ? [] : cities[newValue];
+
+						//the destroy method is causing errors in x-editable v1.4.6+
+						//it worked fine in v1.4.5
+						/**
+						$('#city').editable('destroy').editable({
+							type: 'select2',
+							source: new_source
+						}).editable('setValue', null);
+						*/
+
+						//so we remove it altogether and create a new element
+						var city = $('#city').removeAttr('id').get(0);
+						$(city).clone().attr('id', 'city').text('Select City').editable({
+							type: 'select2',
+							value : null,
+							//onblur:'ignore',
+							source: new_source,
+							select2: {
+								'width': 140
+							}
+						}).insertAfter(city);//insert it after previous instance
+						$(city).remove();//remove previous instance
+
+					}
+			    });
+
+				$('#city').editable({
+					type: 'select2',
+					value : 'Amsterdam',
+					//onblur:'ignore',
+			        source: cities[currentValue],
+					select2: {
+						'width': 140
+					}
+			    });
+
+
+
+				//custom date editable
+				$('#signup').editable({
+					type: 'adate',
+					date: {
+						//datepicker plugin options
+						    format: 'yyyy/mm/dd',
+						viewformat: 'yyyy/mm/dd',
+						 weekStart: 1
+
+						//,nativeUI: true//if true and browser support input[type=date], native browser control will be used
+						//,format: 'yyyy-mm-dd',
+						//viewformat: 'yyyy-mm-dd'
+					}
+				})
+
+			    $('#age').editable({
+			        type: 'spinner',
+					name : 'age',
+					spinner : {
+						min : 16,
+						max : 99,
+						step: 1,
+						on_sides: true
+						//,nativeUI: true//if true and browser support input[type=number], native browser control will be used
+					}
+				});
+
+
+			    $('#login').editable({
+			        type: 'slider',
+					name : 'login',
+
+					slider : {
+						 min : 1,
+						  max: 50,
+						width: 100
+						//,nativeUI: true//if true and browser support input[type=range], native browser control will be used
+					},
+					success: function(response, newValue) {
+						if(parseInt(newValue) == 1)
+							$(this).html(newValue + " hour ago");
+						else $(this).html(newValue + " hours ago");
+					}
+				});
+
+				$('#about').editable({
+					mode: 'inline',
+			        type: 'wysiwyg',
+					name : 'about',
+
+					wysiwyg : {
+					    height: 400,
+						css : {'height':'300px'}
+					},
+					success: function(response, newValue) {
+
+                        setTimeout(function () {
+                            console.log('延迟函数内', $('#about').html()); console.log('延迟函数');
+                            console.log('捕捉到submit')
+                            var about = $('#about').html();
+                            console.log('延迟函数后', about)
+                            $.ajax(
+                                {
+                                    url: "{% url 'edit' %}",
+                                    type: "POST",
+                                    data: {'about': about, 'csrfmiddlewaretoken': '{{ csrf_token }}', },
+                                    success: function (result) {
+                                        if (result) {
+                                            alert('个人介绍修改成功！');
+                                        }
+                                    }
+                                }
+                            )
+
+                        }, 600);
+					}
+				});
+
+
+
+				// *** editable avatar *** //
+				try {//ie8 throws some harmless exceptions, so let's catch'em
+
+					//first let's add a fake appendChild method for Image element for browsers that have a problem with this
+					//because editable plugin calls appendChild, and it causes errors on IE at unpredicted points
+					try {
+						document.createElement('IMG').appendChild(document.createElement('B'));
+					} catch(e) {
+						Image.prototype.appendChild = function(el){}
+					}
+
+					var last_gritter
+					$('#avatar').editable({
+						type: 'image',
+						name: 'avatar',
+						value: null,
+						//onblur: 'ignore',  //don't reset or hide editable onblur?!
+						image: {
+							//specify ace file input plugin's options here
+							btn_choose: 'Change Avatar',
+							droppable: true,
+							maxSize: 11000000,//~100Kb
+
+							//and a few extra ones here
+							name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+							on_error : function(error_type) {//on_error function will be called when the selected file has a problem
+								if(last_gritter) $.gritter.remove(last_gritter);
+								if(error_type == 1) {//file format error
+									last_gritter = $.gritter.add({
+										title: '<b style="font-size: 2rem;text-align: center;color: #ED9421">上传文件类型不是图片!</b>',
+										{#text: '请选择 jpg|gif|png 图片!',#}
+										class_name: 'gritter-error gritter-center'
+									});
+								} else if(error_type == 2) {//file size rror
+									last_gritter = $.gritter.add({
+										title: '<b style="font-size: 2rem;text-align: center;color: #ED9421">文件超过10M!</b>',
+										{#text: '文件大小不能超过 10M!',#}
+										class_name: 'gritter-error gritter-center'
+									});
+								}
+								else {//other error
+								}
+							},
+							on_success : function() {
+								$.gritter.removeAll();
+							}
+						},
+					    url: function(params) {
+							// ***UPDATE AVATAR HERE*** //
+							//for a working upload example you can replace the contents of this function with
+							//examples/profile-avatar-update.js
+
+							var deferred = new $.Deferred
+
+							var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+							console.log('img',value)
+							if(!value || value.length == 0) {
+								deferred.resolve();
+								return deferred.promise();
+							}
+
+
+							//dummy upload
+							setTimeout(function(){
+								if("FileReader" in window) {
+									//for browsers that have a thumbnail of selected image
+									var thumb = $('#avatar').next().find('img').data('thumb');
+									if(thumb) $('#avatar').get(0).src = thumb;
+								}
+
+
+
+                                setTimeout(function () {
+                                    console.log('延迟函数内', $('.ace-file-multiple').children('input').val()); console.log('延迟函数');
+                                    var img_touxiang = $('.ace-file-multiple').children('input')[0].files[0];
+                                    console.log('捕捉到图片', img_touxiang);
+                                    var formData = new FormData();
+                                    formData.append('avatar1', img_touxiang);
+                                    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                                    console.log('延迟函数后', );
+                                    $.ajax(
+                                        {
+                                            url: "{% url 'edit' %}",
+                                            type: "POST",
+                                            data: formData,
+                                            processData: false,
+                                            contentType: false,
+                                            success: function (result) {
+                                                if (result) {
+                                                    deferred.resolve({'status':'OK'});
+
+                                                    if(last_gritter) $.gritter.remove(last_gritter);
+                                                    last_gritter = $.gritter.add({
+                                                        title: '<b style="font-size: 2rem;text-align: center;color: #ED9421">头像上传成功</b>',
+                                                        //text: '头像已上传',
+                                                        class_name: 'gritter-info gritter-center'
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    )
+
+                                }, 600);
+
+							 } , 1000)
+
+							return deferred.promise();
+
+							// ***END OF UPDATE AVATAR HERE*** //
+						},
+
+						success: function(response, newValue) {
+
+						}
+					})
+				}catch(e) {}
+
+				/**
+				//let's display edit mode by default?
+				var blank_image = true;//somehow you determine if image is initially blank or not, or you just want to display file input at first
+				if(blank_image) {
+					$('#avatar').editable('show').on('hidden', function(e, reason) {
+						if(reason == 'onblur') {
+							$('#avatar').editable('show');
+							return;
+						}
+						$('#avatar').off('hidden');
+					})
+				}
+				*/
+
+				//another option is using modals
+				$('#avatar2').on('click', function(){
+					var modal =
+					'<div class="modal fade">\
+					  <div class="modal-dialog">\
+					   <div class="modal-content">\
+						<div class="modal-header">\
+							<button type="button" class="close" data-dismiss="modal">&times;</button>\
+							<h4 class="blue">Change Avatar</h4>\
+						</div>\
+						\
+						<form class="no-margin">\
+						 <div class="modal-body">\
+							<div class="space-4"></div>\
+							<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+						 </div>\
+						\
+						 <div class="modal-footer center">\
+							<button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+							<button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+						 </div>\
+						</form>\
+					  </div>\
+					 </div>\
+					</div>';
+
+
+					var modal = $(modal);
+					modal.modal("show").on("hidden", function(){
+						modal.remove();
+					});
+
+					var working = false;
+
+					var form = modal.find('form:eq(0)');
+					var file = form.find('input[type=file]').eq(0);
+					file.ace_file_input({
+						style:'well',
+						btn_choose:'Click to choose new avatar',
+						btn_change:null,
+						no_icon:'ace-icon fa fa-picture-o',
+						thumbnail:'small',
+						before_remove: function() {
+							//don't remove/reset files while being uploaded
+							return !working;
+						},
+						allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+						allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+					});
+
+					form.on('submit', function(){
+						if(!file.data('ace_input_files')) return false;
+
+						file.ace_file_input('disable');
+						form.find('button').attr('disabled', 'disabled');
+						form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
+
+						var deferred = new $.Deferred;
+						working = true;
+						deferred.done(function() {
+							form.find('button').removeAttr('disabled');
+							form.find('input[type=file]').ace_file_input('enable');
+							form.find('.modal-body > :last-child').remove();
+
+							modal.modal("hide");
+
+							var thumb = file.next().find('img').data('thumb');
+							if(thumb) $('#avatar2').get(0).src = thumb;
+
+							working = false;
+						});
+
+
+						setTimeout(function(){
+							deferred.resolve();
+						} , parseInt(Math.random() * 800 + 800));
+
+						return false;
+					});
+
+				});
+
+
+
+				//////////////////////////////
+				$('#profile-feed-1').ace_scroll({
+					height: '250px',
+					mouseWheelLock: true,
+					alwaysVisible : true
+				});
+
+				$('a[ data-original-title]').tooltip();
+
+				$('.easy-pie-chart.percentage').each(function(){
+				var barColor = $(this).data('color') || '#555';
+				var trackColor = '#E2E2E2';
+				var size = parseInt($(this).data('size')) || 72;
+				$(this).easyPieChart({
+					barColor: barColor,
+					trackColor: trackColor,
+					scaleColor: false,
+					lineCap: 'butt',
+					lineWidth: parseInt(size/10),
+					animate:false,
+					size: size
+				}).css('color', barColor);
+				});
+
+				///////////////////////////////////////////
+
+				//right & left position
+				//show the user info on right or left depending on its position
+				$('#user-profile-2 .memberdiv').on('mouseenter touchstart', function(){
+					var $this = $(this);
+					var $parent = $this.closest('.tab-pane');
+
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+
+					var off2 = $this.offset();
+					var w2 = $this.width();
+
+					var place = 'left';
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
+
+					$this.find('.popover').removeClass('right left').addClass(place);
+				}).on('click', function(e) {
+					e.preventDefault();
+				});
+
+
+				///////////////////////////////////////////
+				$('#user-profile-3')
+				.find('input[type=file]').ace_file_input({
+					style:'well',
+					btn_choose:'Change avatar',
+					btn_change:null,
+					no_icon:'ace-icon fa fa-picture-o',
+					thumbnail:'large',
+					droppable:true,
+
+					allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+					allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+				})
+				.end().find('button[type=reset]').on(ace.click_event, function(){
+					$('#user-profile-3 input[type=file]').ace_file_input('reset_input');
+				})
+				.end().find('.date-picker').datepicker().next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				})
+				$('.input-mask-phone').mask('(999) 999-9999');
+
+				$('#user-profile-3').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
+
+
+				////////////////////
+				//change profile
+				$('[data-toggle="buttons"] .btn').on('click', function(e){
+					var target = $(this).find('input[type=radio]');
+					var which = parseInt(target.val());
+					$('.user-profile').parent().addClass('hide');
+					$('#user-profile-'+which).parent().removeClass('hide');
+				});
+
+
+
+				/////////////////////////////////////
+				$(document).one('ajaxloadstart.page', function(e) {
+					//in ajax mode, remove remaining elements before leaving page
+					try {
+						$('.editable').editable('destroy');
+					} catch(e) {}
+					$('[class*=select2]').remove();
+				});
+			});
+		</script>
+
+		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
+		<link rel="stylesheet" href="/static/ace/assets/css/ace.onpage-help.css" />
+		<link rel="stylesheet" href="/static/ace/docs/assets/js/themes/sunburst.css" />
+
+
+
+{% endblock %}

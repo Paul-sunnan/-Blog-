@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1=(+&l1h47wzs+u3i9cl7eh&b+d+3*06(xud(zm9c+0fqte0f%'
+SECRET_KEY = os.getenv('sunnanblog_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'sunnanblog',
+    'userprofile',
 ]
 
 MIDDLEWARE = [
@@ -71,16 +74,18 @@ WSGI_APPLICATION = 'paul7sk8.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'paul7sk8',
-        'USER': 'root',
-        'PASSWORD': '786626',
-        'HOST': '43.226.69.84',
+        'NAME': os.getenv('sunnanblog_mysql_name'),
+        'USER': os.getenv('sunnanblog_mysql_username'),
+        'PASSWORD': os.getenv('sunnanblog_mysql_password'),
+        'HOST': os.getenv('sunnanblog_mysql_address'),
         'PORT': 3306,
+        'TEST': {
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci',
+        }
     }
 }
 
@@ -107,9 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LOGIN_URL = '/userProfile/login/'
 
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'zh-hans'
+
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -119,6 +126,40 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
+STATIC_ROOT = os.path.join(BASE_DIR, '/static')
+
+
+# 媒体文件：头像
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+# 配置redis缓存
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+            # "PASSWORD": "密码",
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+SESSION_COOKIE_AGE = 60 * 60 * 12  # 12小时
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
+
+
+# email服务器配置
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST_USER = 'sunnan-sk8@hotmail.com'
+EMAIL_HOST_PASSWORD = '786626!WINDOw'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
