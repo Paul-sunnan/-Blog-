@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block css %}
-    <!-- 代码高亮css -->
-    <link rel="stylesheet"  href="/static/sunnanblog/_css/manni.css">
+    <!-- 文章详情css -->
+    <link rel="stylesheet"  href="/static/sunnanblog/article_info.css">
+
+    <!-- markdown编辑器 -->
+    <link rel="stylesheet"  href="/static/sunnanblog/css/style.css">
+    <link rel="stylesheet"  href="/static/sunnanblog/css/editormd.css">
 
 {% endblock %}
 
@@ -28,7 +32,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="main-wrapper">
+    <div class="main-wrapper" style="text-align: left">
 
 	    <article class="about-section py-5">
 		    <div class="container">
@@ -60,8 +64,110 @@
 				        	<a href="" target="_blank"></a>
 				        </figcaption>
 				    </figure>
+                    <div id="doc-content">
+                        <textarea style="display:none;">
+                            {{ article.body|safe }}
+                        </textarea>
+                    </div>
 
-                    <p> {{ article.body|safe }} </p>
+                    <hr>
+                    <br>
+                    <!-- 显示评论 -->
+                    <div class="col-sm-12">
+                        <div class="">
+                            <div class="widget-body">
+                                <div class="widget-main no-padding">
+                                    <!-- /section:pages/dashboard.conversations -->
+                                    <form >
+                                        <div class="form-actions">
+                                            <div class="input-group">
+                                                <input id="comment" placeholder="写下您对本文章评论 ..." type="text" class="form-control" name="comment">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-sm btn-info no-radius" type="button" onclick="SendComment()">
+                                                        <i class="ace-icon fa fa-share"></i>
+                                                        发表评论
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <!-- #section:pages/dashboard.conversations -->
+                                    <div class="dialogs ace-scroll">
+                                        <div class="scroll-track scroll-active" style="display: block; height: 300px;">
+                                            <div class="scroll-bar" style="height: 262px; top: 0px;">
+
+                                            </div>
+                                        </div>
+                                        <div class="scroll-content" >
+                                            {% for temp in comment %}
+                                                <div class="itemdiv dialogdiv">
+                                                    <div class="user">
+                                                        <img alt="Alexa's Avatar" src="{{ temp.user.profile.avatar.url }}">
+                                                    </div>
+
+                                                    <div class="body">
+                                                        <div class="time">
+                                                            <i class="ace-icon fa fa-clock-o"></i>
+                                                            <span class="green">{{ temp.created }}</span>
+                                                        </div>
+
+                                                        <div class="name">
+                                                            <a href="#">{{ temp.user }}</a>
+                                                        </div>
+                                                        <div class="text">{{ temp.body }}</div>
+
+                                                        <div class="tools">
+                                                            <a href="#" class="btn btn-minier btn-info">
+                                                                <i class="icon-only ace-icon fa fa-share"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                            <div class="itemdiv dialogdiv">
+                                                <div class="user">
+                                                    <img alt="Bob's Avatar" src="/static/sunnanblog/article_list/images/touxiang.png">
+                                                </div>
+
+                                                <div class="body">
+                                                    <div class="time">
+                                                        <i class="ace-icon fa fa-clock-o"></i>
+                                                        <span class="orange">2 min</span>
+                                                    </div>
+
+                                                    <div class="name">
+                                                        <a href="#">周杰伦</a>
+                                                        <span class="label label-info arrowed arrowed-in-right">admin</span>
+                                                    </div>
+
+                                                    <div class="text">来个小曲儿</div>
+
+                                                    <div class="tools">
+                                                        <a href="#" class="btn btn-minier btn-info">
+                                                            <i class="icon-only ace-icon fa fa-share"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div><!-- /.widget-main -->
+                            </div><!-- /.widget-body -->
+                        </div><!-- /.widget-box -->
+                    </div>
+
+                    <!-- 富文本提交评论--待修改 -->
+                    <div id="doc-comment" style="display: none">
+                        <textarea style="display:none;">
+
+                        </textarea>
+                    </div>
 
                 </div>
 
@@ -81,6 +187,26 @@
 
 
 {% block js %}
+
+    <!-- 发表评论 -->
+    <script>
+        function SendComment() {
+            var comment = $('#comment').val();
+            $.ajax({
+                url: "{% url 'comment:post_comment' article.id %}",
+                type: "post",
+                data: {"body":comment, "csrfmiddlewaretoken":"{{ csrf_token }}", },
+                success: function (result){
+                    if (result=='ok'){
+                        alert('留言已发表');
+                    }else{
+                        alert('评论内容未通过审核。防火墙已记录您的ip地址。');
+                    }
+                }
+            })
+        }
+    </script>
+
 
     <!-- 弹窗插件 -->
     <script src="/static/layer/layer.js" ></script>
@@ -102,5 +228,105 @@
             })
         }
     </script>
+
+    <!-- markdown编辑器 -->
+    <script src="/static/sunnanblog/js/editormd.js" ></script>
+    <script src="/static/sunnanblog/lib/flowchart.min.js"></script>
+    <script src="/static/sunnanblog/lib/jquery.flowchart.min.js"></script>
+    <script src="/static/sunnanblog/lib/marked.min.js"></script>
+    <script src="/static/sunnanblog/lib/prettify.min.js"></script>
+    <script src="/static/sunnanblog/lib/raphael.min.js"></script>
+    <script src="/static/sunnanblog/lib/sequence-diagram.min.js"></script>
+    <script src="/static/sunnanblog/lib/underscore.min.js"></script>
+    <script src="/static/sunnanblog/lib/marked.min.js"></script>
+    <script src="/static/sunnanblog/lib/prettify.min.js"></script>
+    <script type="text/javascript">
+        var testEditor;
+        $(function () {
+            testEditor = editormd.markdownToHTML("doc-content", {//注意：这里是上面DIV的id
+                htmlDecode: "style,script,iframe",
+                emoji: true,
+                taskList: true,
+                tex: true, // 默认不解析
+                flowChart: true, // 默认不解析
+                sequenceDiagram: true, // 默认不解析
+                codeFold: true,
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            //editormd.markdownToHTML("#my-content");
+        })
+    </script>
+
+    <!-- 评论提交输入框 -->
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function() {
+            var widgets = [];
+
+            testEditor = editormd("doc-comment", {
+                width: "95%",
+                height: 200,
+                path : '/static/sunnanblog/lib/',
+                disabledKeyMaps : [
+                    "Ctrl-B", "F11", "F10"  // disable some default keyboard shortcuts handle
+                ],
+                toolbarIcons : function() {
+                    // Or return editormd.toolbarModes[name]; // full, simple, mini
+                    // Using "||" set icons align right.
+                    return ["emoji", "undo", "redo", "|", "bold", "hr", "|", "code-block", "faicon", ]
+                },
+                onchange : function() {
+                            $("#test").remove();
+                            var cm = this.cm;
+                            var cursor = cm.getCursor();
+
+                            //cm.replaceSelection("@");
+
+                            widgets.push(cm.addWidget({line : cursor.line, ch : cursor.ch}, $("<p style='z-index:100000;background:red;color:#fff;padding:5px;' id='test'>fsdfsdfsdf</p>")[0], true));
+                            console.log(cm.getCursor(), cm.getLine(cursor.line), cm.getLineTokens(cursor.line));
+                },
+                onload : function() {
+                    var keyMap = {
+                        "Ctrl-S": function(cm) {
+                            alert("请点击提交按钮保存");
+                            //return false;
+                        },
+                        "Ctrl-A": function(cm) { // default Ctrl-A selectAll
+                            // custom
+                            alert("Ctrl+A");
+                            cm.execCommand("selectAll");
+                        },
+                        //"Shift-2" : function(cm){
+                        //}
+                    };
+
+                    this.cm.on("keyup", function(cm){
+                        //$("#test").remove();
+                    });
+
+                    // setting signle key
+                    var keyMap2 = {
+                          "Ctrl-T": function(cm) {
+                            alert("Ctrl+T");
+                          }
+                    };
+
+                    this.addKeyMap(keyMap);
+                    this.addKeyMap(keyMap2);
+                    this.removeKeyMap(keyMap2);  // remove signle key
+                }
+            });
+
+            $('.fa-eye').attr('name');
+            console.log($('.fa-eye').attr('name'));
+        });
+    </script>
+
+
+
 
 {% endblock %}

@@ -6,6 +6,7 @@ from .form import ArticlePostForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .models import ArticlePost
+from comment.models import Comment
 import markdown
 
 
@@ -31,17 +32,18 @@ def about(req):
 
 def article_info(req, aid=1):
     article = ArticlePost.objects.get(id=aid)
+    print('检查空格在哪加入', article.body)
+    # 统计浏览量
     article.total_views += 1
     article.save(update_fields=['total_views'])
-    article.body = markdown.markdown(
-        article.body,
-        extensions=[
-            'markdown.extensions.extra',
-            'markdown.extensions.codehilite',
-            # 'markdown.extensions.toc',
-        ],
-    )
-    context = {'article': article, }
+    print('输出文章作者', article.author.profile.avatar.url)
+
+    # 获取该文章评论
+    comment = Comment.objects.filter(article=aid).order_by("-created")
+    print('输出此文章评论内容')
+    print(comment)
+
+    context = {'article': article, 'comment': comment, }
     return render(req, 'sunnanblog/article_info.html', context)
 
 
@@ -91,6 +93,7 @@ def article_update(req, aid):
         if article_post_form.is_valid():
             # 保存新写入的 title、body 数据并保存
             article.title = req.POST['title']
+            print('检查空格在哪加入的', req.POST['body'])
             article.body = req.POST['body']
             article.save()
             # 完成后返回到修改后的文章中。需传入文章的 id 值

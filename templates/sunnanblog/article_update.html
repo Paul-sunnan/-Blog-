@@ -6,6 +6,15 @@
 {% endblock %}
 
 
+{% block css %}
+    <!-- markdown编辑器 -->
+    <link rel="stylesheet"  href="/static/sunnanblog/article_update.css">
+    <link rel="stylesheet"  href="/static/sunnanblog/css/style.css">
+    <link rel="stylesheet"  href="/static/sunnanblog/css/editormd.css">
+    <link rel="stylesheet"  href="/static/bootstrap4/dist/css/bootstrap.css">
+{% endblock %}
+
+
 {% block active %}
 				<ul class="navbar-nav flex-column text-left">
 					<li class="nav-item  ">
@@ -28,28 +37,110 @@
 {#    <div class="row">#}
     <div class="main-wrapper">
         <div class="col-xs-12">
+            <div style="height: 40px"></div>
             <form method="post" action="{% url 'article_update' article.id %}">
-                <div class="form-group">
-                    {% csrf_token %}
-                    <label class="col-sm-3 control-label no-padding-right" for="title"> 文章标题 </label>
+                {% csrf_token %}
+
+                <div class="form-group" >
+                    <label id="title1" class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章标题 </label>
+
                     <div class="col-sm-9">
                         <input type="text" id="title" name="title" placeholder="{{ article.title }}" value="{{ article.title }}" class="col-xs-10 col-sm-5">
                     </div>
+                </div>
 
-                    <label class="col-sm-3 control-label no-padding-right" for="body"> 文章内容 </label>
-                    <div class="col-sm-9">
-                        <textarea type="text" id="body" name="body" placeholder="文章内容" class="col-xs-10 col-sm-5" rows="12" name="body" rows="12">
-                        {{ article.body }}
+                <div id="layout">
+                    <label id="body1" class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章内容 </label>
+                    <div id="test-editormd">
+                        <textarea style="display:none;" type="text" id="body" name="body" placeholder="文章内容" class="col-xs-10 col-sm-5" name="body">
+                            {{ article.body }}
                         </textarea>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">提交</button>
-
                 </div>
+                <div class="btn-div">
+                    <button  type="submit" class="btn btn-danger btn-block">提交</button>
+                </div>
+
             </form>
         </div>
     </div>
 
+{% endblock %}
+
+
+{% block js %}
+    <!-- markdown编辑器 -->
+    <script src="/static/sunnanblog/js/editormd.js" ></script>
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function() {
+            var widgets = [];
+
+            testEditor = editormd("test-editormd", {
+                width: "90%",
+                height: 720,
+                path : '/static/sunnanblog/lib/',
+                disabledKeyMaps : [
+                    "Ctrl-B", "F11", "F10"  // disable some default keyboard shortcuts handle
+                ],
+                onchange : function() {
+                            $("#test").remove();
+                            var cm = this.cm;
+                            var cursor = cm.getCursor();
+
+                            //cm.replaceSelection("@");
+
+                            widgets.push(cm.addWidget({line : cursor.line, ch : cursor.ch}, $("<p style='z-index:100000;background:red;color:#fff;padding:5px;' id='test'>fsdfsdfsdf</p>")[0], true));
+                            console.log(cm.getCursor(), cm.getLine(cursor.line), cm.getLineTokens(cursor.line));
+                },
+                onload : function() {
+                    var keyMap = {
+                        "Ctrl-S": function(cm) {
+                            alert("Ctrl+S");
+                            //return false;
+                        },
+                        "Ctrl-A": function(cm) { // default Ctrl-A selectAll
+                            // custom
+                            alert("Ctrl+A");
+                            cm.execCommand("selectAll");
+                        },
+                        //"Shift-2" : function(cm){
+                        //}
+                    };
+
+                    this.cm.on("keyup", function(cm){
+                        //$("#test").remove();
+                    });
+
+                    // setting signle key
+                    var keyMap2 = {
+                          "Ctrl-T": function(cm) {
+                            alert("Ctrl+T");
+                          }
+                    };
+
+                    this.addKeyMap(keyMap);
+                    this.addKeyMap(keyMap2);
+                    this.removeKeyMap(keyMap2);  // remove signle key
+                }
+            });
+
+            $('.fa-eye').attr('name');
+            console.log($('.fa-eye').attr('name'));
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setTimeout(function(){
+                $('.fa-eye').attr('name', 'watch');
+                console.log($('.fa-eye').attr('name'));
+
+                //$('#body').text($('.editormd-html-textarea').text())
+            },
+            900);
+        })
+    </script>
 {% endblock %}
 
 
