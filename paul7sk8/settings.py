@@ -159,8 +159,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # 关闭浏览器，则COOKIE失效
 
 # email服务器配置
 EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST_USER = 'sunnan-sk8@hotmail.com'
-EMAIL_HOST_PASSWORD = '786626!WINDOw'
+EMAIL_HOST_USER = os.getenv('sunnanblog_hotmail_username')
+EMAIL_HOST_PASSWORD = os.getenv('sunnanblog_hotmail_password')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
