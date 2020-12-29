@@ -1,0 +1,35 @@
+
+#title{
+    border-radius: 0 !important;
+    color: #858585;
+    background-color: #FFF;
+    border: 1px solid #D5D5D5;
+    padding: 5px 4px 6px;
+    font-size: 20px;
+    font-family: inherit;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    margin-bottom: 3rem;
+}
+#title1{
+    font-size: 20px;
+}
+
+.form-group{
+    margin-left: 3rem;
+}
+
+#body1{
+    font-size: 20px;
+    margin-left: 3rem;
+}
+
+.btn-div{
+    width: 90% !important;
+    font-size: 3rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
