@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'sunnanblog',
     'userprofile',
     'comment',
+    'mptt',  # 多级评论
 ]
 
 MIDDLEWARE = [
