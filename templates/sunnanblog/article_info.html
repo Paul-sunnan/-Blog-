@@ -41,7 +41,7 @@
 				    <div class="meta mb-3">
                         <span class="date">{{ article.created }}</span>
                         <span class="time">已读  {{ article.total_views }} </span>
-                        <span class="comment"><a href="#"> 评论  0</a></span>
+                        <span class="comment"><a href="#"> 评论  {{ article.comments.count }}</a></span>
                         <span class="comment"><a href="#"> 作者  {{ article.author }}</a></span>
                         {% if request.user == article.author %}
                         <span class="comment"><a href="#" onclick="confirm_delete();"> 删除该文章 </a></span>
