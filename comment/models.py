@@ -6,7 +6,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 # 博文的评论
-class Comment(MPTTModel):
+class Comment(models.Model):
     article = models.ForeignKey(
         ArticlePost,
         on_delete=models.CASCADE,
@@ -18,26 +18,9 @@ class Comment(MPTTModel):
         related_name='comments'
     )
     body = models.TextField()
-
-    parent = TreeForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children'
-    )
-
-    # 新增，记录二级评论回复给谁, str
-    reply_to = models.ForeignKey(
-        User,
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        related_name='replyers'
-    )
     created = models.DateTimeField(auto_now_add=True)
 
-    class MPTTMeta:
+    class Meta:
         ordering = ('-created',)
 
     def __str__(self):

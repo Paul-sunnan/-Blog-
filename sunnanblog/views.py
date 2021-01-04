@@ -53,7 +53,7 @@ def article_create(req):
         print(article_post_form)
         if article_post_form.is_valid():
             new_article = article_post_form.save(commit=False)
-            new_article.author = User.objects.get(id=1)
+            new_article.author = req.user
             new_article.save()
             return redirect('article_list')
         else:
