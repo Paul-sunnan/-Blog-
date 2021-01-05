@@ -91,8 +91,8 @@ function checks() {
 		}
 	}
 	dzq.html(ht);
-	if (typeLen > 38) {
-		dzq.scrollTop(parseInt((typeLen - 38) / 18) * 23);
+	if (typeLen > 70) {
+		dzq.scrollTop(parseInt((typeLen - 70) / 18) * 23);
 	} else {
 		dzq.scrollTop(0);
 	}

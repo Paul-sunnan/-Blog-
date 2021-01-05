@@ -113,4 +113,6 @@ def article_update(req, aid):
         return render(req, 'sunnanblog/article_update.html', context)
 
 
+def typing_game(request):
+    return render(request, 'sunnanblog/typing_game.html')
 

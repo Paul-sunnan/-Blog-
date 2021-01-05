@@ -8,22 +8,22 @@
 	}
 	.type-content-div{
 		/*border: 1px dashed #2EAFBB;*/
-		width: 700px;
-		height:460px; 
+		width: 70%;
+		height:auto;
 		overflow: hidden; 
 		margin: 10px auto;
 	}
 	.typetool{
-		width:400px;
+		width:64%;
 		margin-left: 10px;
 		float:left;
 	}
 	.typetool>div{
-		width:370px;
+		width:100%;
 		margin-left: 10px;
 	}
 	.article-list-div{
-		width:268px;
+		width:32%;
 		margin-right: 5px;
 		float:right;
 	}

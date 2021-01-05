@@ -62,16 +62,16 @@
 {% block active %}
 				<ul class="navbar-nav flex-column text-left">
 					<li class="nav-item ">
-					    <a class="nav-link" href="{% url 'article_menu' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog首页 <span class="sr-only"></span></a>
+					    <a class="nav-link" href="{% url 'article_menu' %}"><i class="fa fa-home fa-fw mr-2"></i>Blog首页 <span class="sr-only"></span></a>
 					</li>
 					<li class="nav-item  active">
-					    <a class="nav-link" href="{% url 'article_list' %}"><i class="fas fa-bookmark fa-fw mr-2"></i>文章/学习笔记</a>
+					    <a class="nav-link" href="{% url 'article_list' %}"><i class="fa fa-bookmark fa-fw mr-2"></i>文章/学习笔记</a>
 					</li>
                     <li class="nav-item  ">
-					    <a class="nav-link" href="{% url 'article_create' %}"><i class="fas fa-pencil fa-fw mr-2"></i>写笔记</a>
+					    <a class="nav-link" href="{% url 'article_create' %}"><i class="fa  fa-pencil fa-fw mr-2"></i>写笔记</a>
 					</li>
 					<li class="nav-item">
-					    <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-user fa-fw mr-2"></i>个人简历</a>
+					    <a class="nav-link" href="{% url 'about' %}"><i class="fa fa-user fa-fw mr-2"></i>个人简历</a>
 					</li>
 				</ul>
 {% endblock %}
@@ -114,11 +114,7 @@
 						    	</span>
 						    </div>
 						    <div class="intro">
-                                {% if article.body|length >= 200 %}
-                                    {{ article.body | safe | slice:'200' }}
-                                {% else %}
-                                    {{ article.body | safe }}
-                                {% endif %}
+                                {% if article.body|length >= 200 %}{{ article.body | safe | slice:'200' }}{% else %}{{ article.body | safe }}{% endif %}
        						</div>
 						    <a class="more-link" href="{% url 'article_info' article.id %}">阅读全文 &rarr;</a>
 					    </div>
@@ -128,15 +124,15 @@
 
 
 			    <nav class="blog-nav nav nav-justified my-5">
-                    <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">上一组<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
-                    <a class="nav-link-next nav-item nav-link rounded" href="">下一组<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+                    <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">上一组<i class="arrow-prev fa fa-long-arrow-alt-left"></i></a>
+                    <a class="nav-link-next nav-item nav-link rounded" href="">下一组<i class="arrow-next fa fa-long-arrow-alt-right"></i></a>
 				</nav>
 
 		    </div>
 	    </section>
 
 	    <footer class="footer text-center py-2 theme-bg-dark">
-            <small class="copyright"> 孙楠个人Blog网站 <i class="fas fa-home" style="color: #fb866a;"></i> <a href="http://themes.3rdwavemedia.com" target="_blank">备案号 :</a> </small>
+            <small class="copyright"> 孙楠个人Blog网站 <i class="fa fa-home" style="color: #fb866a;"></i> <a href="http://themes.3rdwavemedia.com" target="_blank">备案号 :</a> </small>
 	    </footer>
 
     </div><!--//main-wrapper-->
@@ -145,7 +141,7 @@
     <!-- 主题配色选择 -->
     <div id="config-panel" class="config-panel d-none d-lg-block">
         <div class="panel-inner">
-            <a id="config-trigger" class="config-trigger config-panel-hide text-center" href="#"><i class="fas fa-cog fa-spin mx-auto" data-fa-transform="down-6" ></i></a>
+            <a id="config-trigger" class="config-trigger config-panel-hide text-center" href="#"><i class="fa fa-cog fa-spin mx-auto" data-fa-transform="down-6" ></i></a>
             <h5 class="panel-title">选择主题</h5>
             <ul id="color-options" class="list-inline mb-0">
                 <li class="theme-1 active list-inline-item"><a data-style="/static/sunnanblog/article_list/css/theme-1.css" href="#"></a></li>

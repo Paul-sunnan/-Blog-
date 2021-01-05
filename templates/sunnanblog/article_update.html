@@ -18,16 +18,16 @@
 {% block active %}
 				<ul class="navbar-nav flex-column text-left">
 					<li class="nav-item  ">
-					    <a class="nav-link" href="{% url 'article_menu' %}"><i class="fas fa-home fa-fw mr-2"></i>Blog首页 <span class="sr-only"></span></a>
+					    <a class="nav-link" href="{% url 'article_menu' %}"><i class="fa fa-home fa-fw mr-2"></i>Blog首页 <span class="sr-only"></span></a>
 					</li>
 					<li class="nav-item  ">
-					    <a class="nav-link" href="{% url 'article_list' %}"><i class="fas fa-bookmark fa-fw mr-2"></i>文章/学习笔记</a>
+					    <a class="nav-link" href="{% url 'article_list' %}"><i class="fa fa-bookmark fa-fw mr-2"></i>文章/学习笔记</a>
 					</li>
                     <li class="nav-item  ">
-					    <a class="nav-link" href="{% url 'article_create' %}"><i class="fas fa fa-pencil fa-fw mr-2"></i>写笔记</a>
+					    <a class="nav-link" href="{% url 'article_create' %}"><i class="fa fa fa-pencil fa-fw mr-2"></i>写笔记</a>
 					</li>
 					<li class="nav-item  ">
-					    <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-user fa-fw mr-2"></i>个人简历</a>
+					    <a class="nav-link" href="{% url 'about' %}"><i class="fa fa-user fa-fw mr-2"></i>个人简历</a>
 					</li>
 				</ul>
 {% endblock %}
@@ -52,9 +52,7 @@
                 <div id="layout">
                     <label id="body1" class="col-sm-3 control-label no-padding-right" for="form-field-1"> 文章内容 </label>
                     <div id="test-editormd">
-                        <textarea style="display:none;" type="text" id="body" name="body" placeholder="文章内容" class="col-xs-10 col-sm-5" name="body">
-                            {{ article.body }}
-                        </textarea>
+                        <textarea style="display:none;" type="text" id="body" name="body" placeholder="文章内容" class="col-xs-10 col-sm-5" name="body">{{ article.body }}</textarea>
                     </div>
                 </div>
                 <div class="btn-div">
@@ -91,7 +89,7 @@
 
                             //cm.replaceSelection("@");
 
-                            widgets.push(cm.addWidget({line : cursor.line, ch : cursor.ch}, $("<p style='z-index:100000;background:red;color:#fff;padding:5px;' id='test'>fsdfsdfsdf</p>")[0], true));
+                            widgets.push(cm.addWidget({line : cursor.line, ch : cursor.ch}, $("<p style='z-index:100000;background:red;color:#fff;padding:5px;' id='test'>此处已修改</p>")[0], true));
                             console.log(cm.getCursor(), cm.getLine(cursor.line), cm.getLineTokens(cursor.line));
                 },
                 onload : function() {
